@@ -1,0 +1,18 @@
+Organisation: {{ organisation.name }}
+<hr>
+</br>
+Products:
+{% if products_list %}
+    <ol>
+    {% for product in products_list %}
+        <li>
+            Product Name : {{product.name}} </br>
+            Product Description : {{ product.description }} </br>
+            Inventory : {{ product.quantity }} {{product.unit}} 
+            <a href="/products/{{ product.id }}/"> details </a>    
+        </li>
+    {% endfor %}
+    </ol>
+{% else %}
+    <p>No products.</p>
+{% endif %}
