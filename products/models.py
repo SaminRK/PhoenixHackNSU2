@@ -19,8 +19,14 @@ class Product(models.Model):
 class ProductList(models.Model):
     description = models.CharField(max_length=254)
 
+    def __str__(self):
+        return self.description
+
 class ProductsInProductList(models.Model):
     productList = models.ForeignKey(ProductList, on_delete=models.CASCADE)
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
     quantity = models.DecimalField(max_digits=100, decimal_places=1)
     unit = models.CharField(max_length=20)
+
+    def __str__(self):
+        return "%d %s of %s in %s" % (self.quantity, self.unit, self.product.name, self.productList.description)
