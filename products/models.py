@@ -10,6 +10,7 @@ class Product(models.Model):
     description = models.TextField()
     quantity = models.DecimalField(max_digits=100, decimal_places=1)
     unit = models.CharField(max_length=20)
+    unitPrice = models.DecimalField(max_digits=100, decimal_places=1)
     isForSale = models.BooleanField()
 
     def __str__(self):

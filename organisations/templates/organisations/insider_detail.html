@@ -20,4 +20,17 @@ Products:
 <hr>
 Raise Demand:
 <hr>
-Issue Tender:
+Issued Tenders:
+{% if issued_tenders %}
+    <ol>
+    {% for tender in issued_tenders %}
+        <li>
+            Tender ID : {{tender.id}} 
+            <a href="/tenders/{{ tender.id }}/"> details </a>
+        </li>
+    {% endfor %}
+    </ol>
+{% else %}
+    <p>No issued tenders.</p>
+{% endif %}
+<a href="/tenders/newForOrganisation/{{ organisation.id }}"> Issue Tender </a>
