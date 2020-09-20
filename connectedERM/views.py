@@ -11,8 +11,8 @@ def userlogin(request):
         user = authenticate(username=user_name, password=pass_word,)
         if user is not None:
             login(request,user)
-            return HttpResponse("succsess")
-        return "fguesfyesu"
+            return redirect('/user/' + str(user.id))
+        return redirect('/login')
 
 
 def signup(request):
@@ -32,3 +32,6 @@ def signup(request):
         user.last_name = lname
         user.save()
         return redirect('/login')
+
+def dashboard(request, user_id):
+    return HttpResponse("Hello user " + str(user_id))

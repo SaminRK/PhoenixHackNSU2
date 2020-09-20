@@ -23,4 +23,5 @@ urlpatterns = [
     path('tenders/', include('tenders.urls')),
     path('login/',views.userlogin),
     path('signup/',views.signup),
+    path('user/<int:user_id>', views.dashboard),
 ]
