@@ -4,13 +4,12 @@ Tender: {{ tender.id }}
 Products:
 {% if products %}
     <ol>
-    {% for product in products_list %}
+    {% for product in products %}
         <li>
             Product Name : {{product.name}} </br>
             Product Description : {{ product.description }} </br>
             Quantity : {{ product.quantity }} {{product.unit}} 
             <a href="/products/{{ product.id }}/"> details </a>
-            <a href="/products/{{ product.id }}/demands"> Demand </a>
         </li>
     {% endfor %}
     </ol>

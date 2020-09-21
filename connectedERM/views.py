@@ -2,6 +2,9 @@ from django.contrib.auth import authenticate,login
 from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+
+from organisations.models import UserOrganisation
+
 def userlogin(request):
     if request.method != "POST":
         return render(request,'login.html')
@@ -13,7 +16,6 @@ def userlogin(request):
             login(request,user)
             return redirect('/user/' + str(user.id))
         return redirect('/login')
-
 
 def signup(request):
     if request.method != "POST":
@@ -34,4 +36,13 @@ def signup(request):
         return redirect('/login')
 
 def dashboard(request, user_id):
-    return HttpResponse("Hello user " + str(user_id))
+    if (request.user.id == user_id):
+        user = request.user
+        organisations = UserOrganisation.objects.filter(user=user.id)
+        return render(request,
+            'dashboard.html', {
+                'user' : user,
+                'organisations' : organisations,
+            })
+    else:
+        return redirect('/login')

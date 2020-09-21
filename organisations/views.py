@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 
 from .models import Organisation
-from products.models import Product
+from products.models import Product, Inventory
 from tenders.models import Tender, TenderBid
 
 # Create your views here.
@@ -15,7 +15,8 @@ def detail(request, organisation_id):
     # if insider user
     try:
         organisation = Organisation.objects.get(pk=organisation_id)
-        products = Product.objects.filter(owner_id=organisation_id)
+        inventory = Inventory.objects.filter(organisation=organisation_id)
+        products = Product.objects.filter()
         issuedTenders = Tender.objects.filter(issuerOrganisation=organisation_id)
         tenderBids = TenderBid.objects.filter(bidderOrganisation=organisation_id)
     except Organisation.DoesNotExist:

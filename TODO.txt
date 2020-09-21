@@ -1,0 +1,14 @@
+1. Fix Inventory
+1. Fix null problem
+2. create forms for data entry
+3. tender bidding
+4. confirmation -> order
+5. transactions
+3. css css css ....
+4. user access checking
+5. add producer organisation to product
+6. try to add analytics
+7. prepare software for video presentation -> Shwarup
+
+.. make file organisations a bit more uniform
+.. form validation

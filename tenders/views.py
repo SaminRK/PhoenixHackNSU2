@@ -3,6 +3,7 @@ from django.http import HttpResponse
 
 from .models import Tender, TenderBid
 from products.models import ProductsInProductList
+from organisations.models import Organisation
 
 # Create your views here.
 def index(request):
@@ -21,3 +22,36 @@ def detail(request, tender_id):
             'products' : products,
             'tender_bids' : tenderBids ,  
         })
+
+def newTender(request, organisation_id):
+    
+    if request.method != "POST":
+        # if user is from the organisation
+        user = request.user
+        organisation = Organisation.objects.get(pk=organisation_id)
+        return render(request, 'tenders/new_tender_form.html', { 'user' : user, 'organisation' : organisation})
+    else:
+        # enter new tender into db
+        productList = ProductList(description='product list for tender')
+        productList.save()
+        postedProductList = request.POST.get['products']
+        for postedProduct in postedProductList:
+            newProduct = Product(
+                name=postedProduct.name,
+                isForSale=False,
+            )
+            newProduct.save()
+            productsInProductList = ProductsInProductList(
+                productList=productList,
+                product=newProduct,
+                quantity=postedProduct.quantity,
+                unit=postedProduct.unit,
+            )
+            productsInProductList.save()
+        tender = Tender(
+            issuerOrganisation=Organisation.objects.get(pk=organisation_id),
+            productList=productList,
+        )
+        tender.save()
+
+        return redirect('tenders/organisations/' + str(organisation_id))

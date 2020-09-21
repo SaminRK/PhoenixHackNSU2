@@ -7,7 +7,7 @@ from products.models import ProductList
 class Tender(models.Model):
     issuerOrganisation = models.ForeignKey(Organisation, on_delete=models.CASCADE)
     productList = models.ForeignKey(ProductList, on_delete=models.CASCADE)
-    description = models.TextField()
+    description = models.TextField(blank=True)
 
     def __str__(self):
         return "%s -- %s" % (self.issuerOrganisation.name, self.description)

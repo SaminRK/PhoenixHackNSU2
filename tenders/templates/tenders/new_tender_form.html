@@ -1,0 +1,57 @@
+New Tender for Organisation: 
+<span id="org-id">{{ organisation.name }}</span> <br>
+Issuer: {{ user.username }} <br>
+<hr>
+<div id="product_rows">
+    {% csrf_token %}
+    <input id="product-1"><input type="number" id="quantity-1"><input id="unit-1">
+</div>
+<br><br>
+<input type="button" value="Submit" onclick="submit()">
+<input type="button" value="Add More Products" onclick="addrow()">
+
+<script>
+    var rowCounter = 1;
+    function addrow() {
+        console.log('clicked');
+        var productRows = document.getElementById("product_rows");
+        productRows.appendChild(document.createElement("br"));
+        var newProduct = document.createElement("input");
+        newProduct.id = `product-${++rowCounter}`;
+        productRows.appendChild(newProduct);
+        var newQuantity = document.createElement("input");
+        newQuantity.type = "number";
+        newQuantity.id = `quantity-${rowCounter}`;
+        productRows.appendChild(newQuantity);
+        var newUnit = document.createElement("input");
+        newUnit.id = `unit-${rowCounter}`;
+        productRows.appendChild(newUnit);
+    }
+
+    function submit() {
+        console.log('submit');
+        var productList = [];
+        for (var i = 1; i <= rowCounter; ++i) {
+            var name = document.getElementById(`product-${i}`).value
+            var quantity = document.getElementById(`quantity-${i}`).value
+            var unit = document.getElementById(`unit-${i}`).value
+            var obj = {
+                name : name,
+                quantity : quantity,
+                unit : unit
+            }
+            productList.push(obj);
+        }
+        //var organisation_id = document.getElementById("org-id").innerText;
+        var json = JSON.stringify({
+            //organisation : organisation_id,
+            products : productList,
+        })
+        var xhr = new XMLHttpRequest();
+        xhr.open("POST", '', true);
+        xhr.setRequestHeader("X-CSRFToken", '{% csrf_token %}'); 
+        xhr.setRequestHeader('Content-Type', 'application/json');
+        xhr.send(json);
+        console.log(json);
+    }
+</script>
