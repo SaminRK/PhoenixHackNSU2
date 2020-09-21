@@ -3,7 +3,7 @@ from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 
-from organisations.models import UserOrganisation
+from organisations.models import Organisation, UserOrganisation
 
 def userlogin(request):
     if request.method != "POST":
@@ -38,11 +38,14 @@ def signup(request):
 def dashboard(request, user_id):
     if (request.user.id == user_id):
         user = request.user
-        organisations = UserOrganisation.objects.filter(user=user.id)
+        organisations = UserOrganisation.objects.filter(user=user.id).values('organisation', 'organisation__name')
+        otherOrganisations = Organisation.objects.all()
+        
         return render(request,
             'dashboard.html', {
                 'user' : user,
-                'organisations' : organisations,
+                'my_organisations' : organisations,
+                'other_organisations' : otherOrganisations,
             })
     else:
         return redirect('/login')

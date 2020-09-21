@@ -6,10 +6,11 @@ Products:
     <ol>
     {% for product in products_list %}
         <li>
-            Product Name : {{product.name}} </br>
-            Product Description : {{ product.description }} </br>
-            Inventory : {{ product.quantity }} {{product.unit}} 
-            <a href="/products/{{ product.id }}/"> details </a>    
+            Product Name : {{product.product__name}} </br>
+            Product Description : {{ product.product__description }} <br>
+            Inventory : {{ product.quantity }} {{product.unit}} <br>
+            <a href="/products/{{ product.product }}/"> details </a>    
+            <a href="/products/{{ product.product }}/addOrderForOrganisation/{{organisation.id}}"> order </a>
         </li>
     {% endfor %}
     </ol>

@@ -21,6 +21,7 @@ urlpatterns = [
 
     path('organisations/', include('organisations.urls')),
     path('tenders/', include('tenders.urls')),
+    path('products/', include('products.urls')),
     path('login/',views.userlogin),
     path('signup/',views.signup),
     path('user/<int:user_id>', views.dashboard),

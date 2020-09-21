@@ -1,22 +1,39 @@
 Organisation: {{ organisation.name }}
 <hr>
 </br>
-Products:
+Products in inventory:
 {% if products_list %}
     <ol>
     {% for product in products_list %}
         <li>
-            Product Name : {{product.name}} </br>
-            Product Description : {{ product.description }} </br>
-            Inventory : {{ product.quantity }} {{product.unit}} 
-            <a href="/products/{{ product.id }}/"> details </a>
-            <a href="/products/{{ product.id }}/demands"> Demand </a>
+            Product Name : {{product.product__name}} </br>
+            Product Description : {{ product.productdescription }} </br>
+            Quantity : {{ product.quantity }} {{product.unit}} 
+            <a href="/products/{{ product.product }}/"> details </a>
+            <a href="/products/{{ product.product }}/demand"> Demand </a>
         </li>
     {% endfor %}
     </ol>
 {% else %}
     <p>No products.</p>
 {% endif %}
+<hr>
+Orders for Organisation:
+{% if orders_for %}
+    <ol>
+    {% for order in orders_for %}
+        <li>
+            Product Name : {{ order.product__name }}  <a href="/products/{{ order.product }}/"> details </a> <br>
+            Place by Organisation : {{order.fromOrganisation__name}} <a href="/organisations/{{ order.fromOrganisation }}/"></a> </br>
+            Quantity : {{ order.quantity }} {{order.unit}} <br>
+            Date Time : {{ order.orderPlaceAt }}
+        </li>
+    {% endfor %}
+    </ol>
+{% else %}
+    <p>No order.</p>
+{% endif %}
+
 <hr>
 Raise Demand:
 <hr>

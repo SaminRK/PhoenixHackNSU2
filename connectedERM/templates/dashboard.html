@@ -1,10 +1,24 @@
 User: {{ user.first_name }} {{ user.last_name }} <br>
 Email: {{ user.email }}
 <hr>
-Organisations: <br>
-{% if organisations %}
+My Organisations: <br>
+{% if my_organisations %}
     <ol>
-    {% for organisation in organisations %}
+    {% for organisation in my_organisations %}
+        <li>
+            Organisation: {{ organisation.organisation__name }}
+            <a href="../organisations/{{organisation.organisation}}">Details</a>    
+        </li>
+    {% endfor %}
+    </ol>
+{% else %}
+    <p>No organisations.</p>
+{% endif %}
+<hr>
+All Organisations: <br>
+{% if other_organisations %}
+    <ol>
+    {% for organisation in other_organisations %}
         <li>
             Organisation: {{ organisation.name }}
             <a href="../organisations/{{organisation.id}}">Details</a>    
