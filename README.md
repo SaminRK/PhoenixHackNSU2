@@ -9,3 +9,8 @@ Language: Python
 framework:Django (version 3.1.1)
 --Dependency
   pilow
+
+We started out with the following architecture in mind but managed to complete only the entities marked in blue.
+
+![System Architecture](https://github.com/SaminRahmanKhan/raw/master/system_architecture_detailed.png "System Architecture")
+
